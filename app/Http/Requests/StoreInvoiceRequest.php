@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Inovice;
+use App\Models\Invoice;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class StoreInoviceRequest extends FormRequest
+class StoreInvoiceRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('inovice_create');
+        return Gate::allows('invoice_create');
     }
 
     public function rules()
@@ -20,7 +20,7 @@ class StoreInoviceRequest extends FormRequest
             'order_no' => [
                 'string',
                 'required',
-                'unique:inovices',
+                'unique:invoices',
             ],
             'invoice_date' => [
                 'required',
@@ -61,12 +61,6 @@ class StoreInoviceRequest extends FormRequest
             'notes' => [
                 'string',
                 'nullable',
-            ],
-            'items_ordereds.*' => [
-                'integer',
-            ],
-            'items_ordereds' => [
-                'array',
             ],
             'subtotal' => [
                 'required',

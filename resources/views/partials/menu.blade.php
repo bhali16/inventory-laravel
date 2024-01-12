@@ -87,13 +87,23 @@
                 </a>
             </li>
         @endcan
-        @can('inovice_access')
+        @can('invoice_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.inovices.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/inovices") || request()->is("admin/inovices/*") ? "c-active" : "" }}">
+                <a href="{{ route("admin.invoices.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoices") || request()->is("admin/invoices/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-file-invoice c-sidebar-nav-icon">
 
                     </i>
-                    {{ trans('cruds.inovice.title') }}
+                    {{ trans('cruds.invoice.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('invoice_item_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.invoice-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-items") || request()->is("admin/invoice-items/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-square c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.invoiceItem.title') }}
                 </a>
             </li>
         @endcan

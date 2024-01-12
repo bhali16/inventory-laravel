@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Inovice extends Model
+class Invoice extends Model
 {
     use SoftDeletes, Auditable, HasFactory;
 
-    public $table = 'inovices';
+    public $table = 'invoices';
 
     protected $dates = [
         'invoice_date',
@@ -60,10 +60,5 @@ class Inovice extends Model
     public function setInvoiceDateAttribute($value)
     {
         $this->attributes['invoice_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
-    public function items_ordereds()
-    {
-        return $this->belongsToMany(Product::class);
     }
 }

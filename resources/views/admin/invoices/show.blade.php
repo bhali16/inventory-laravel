@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.inovice.title') }}
+        {{ trans('global.show') }} {{ trans('cruds.invoice.title') }}
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.inovices.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.invoices.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -17,178 +17,168 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.id') }}
+                            {{ trans('cruds.invoice.fields.id') }}
                         </th>
                         <td>
-                            {{ $inovice->id }}
+                            {{ $invoice->id }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.order_no') }}
+                            {{ trans('cruds.invoice.fields.order_no') }}
                         </th>
                         <td>
-                            {{ $inovice->order_no }}
+                            {{ $invoice->order_no }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.invoice_date') }}
+                            {{ trans('cruds.invoice.fields.invoice_date') }}
                         </th>
                         <td>
-                            {{ $inovice->invoice_date }}
+                            {{ $invoice->invoice_date }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.delivery_method') }}
+                            {{ trans('cruds.invoice.fields.delivery_method') }}
                         </th>
                         <td>
-                            {{ $inovice->delivery_method }}
+                            {{ $invoice->delivery_method }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.account') }}
+                            {{ trans('cruds.invoice.fields.account') }}
                         </th>
                         <td>
-                            {{ $inovice->account }}
+                            {{ $invoice->account }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.job_name') }}
+                            {{ trans('cruds.invoice.fields.job_name') }}
                         </th>
                         <td>
-                            {{ $inovice->job_name }}
+                            {{ $invoice->job_name }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.branch') }}
+                            {{ trans('cruds.invoice.fields.branch') }}
                         </th>
                         <td>
-                            {{ $inovice->branch }}
+                            {{ $invoice->branch }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.delivery_address') }}
+                            {{ trans('cruds.invoice.fields.delivery_address') }}
                         </th>
                         <td>
-                            {{ $inovice->delivery_address }}
+                            {{ $invoice->delivery_address }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.delivery_phone') }}
+                            {{ trans('cruds.invoice.fields.delivery_phone') }}
                         </th>
                         <td>
-                            {{ $inovice->delivery_phone }}
+                            {{ $invoice->delivery_phone }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.billing_address') }}
+                            {{ trans('cruds.invoice.fields.billing_address') }}
                         </th>
                         <td>
-                            {{ $inovice->billing_address }}
+                            {{ $invoice->billing_address }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.billing_phone') }}
+                            {{ trans('cruds.invoice.fields.billing_phone') }}
                         </th>
                         <td>
-                            {{ $inovice->billing_phone }}
+                            {{ $invoice->billing_phone }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.notes') }}
+                            {{ trans('cruds.invoice.fields.notes') }}
                         </th>
                         <td>
-                            {{ $inovice->notes }}
+                            {{ $invoice->notes }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.items_ordered') }}
+                            {{ trans('cruds.invoice.fields.subtotal') }}
                         </th>
                         <td>
-                            @foreach($inovice->items_ordereds as $key => $items_ordered)
-                                <span class="label label-info">{{ $items_ordered->product_code }}</span>
-                            @endforeach
+                            {{ $invoice->subtotal }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.subtotal') }}
+                            {{ trans('cruds.invoice.fields.tax') }}
                         </th>
                         <td>
-                            {{ $inovice->subtotal }}
+                            {{ $invoice->tax }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.tax') }}
+                            {{ trans('cruds.invoice.fields.delivery_charges') }}
                         </th>
                         <td>
-                            {{ $inovice->tax }}
+                            {{ $invoice->delivery_charges }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.delivery_charges') }}
+                            {{ trans('cruds.invoice.fields.freight') }}
                         </th>
                         <td>
-                            {{ $inovice->delivery_charges }}
+                            {{ $invoice->freight }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.freight') }}
+                            {{ trans('cruds.invoice.fields.handling') }}
                         </th>
                         <td>
-                            {{ $inovice->freight }}
+                            {{ $invoice->handling }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.handling') }}
+                            {{ trans('cruds.invoice.fields.restocking') }}
                         </th>
                         <td>
-                            {{ $inovice->handling }}
+                            {{ $invoice->restocking }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.restocking') }}
+                            {{ trans('cruds.invoice.fields.other_charges') }}
                         </th>
                         <td>
-                            {{ $inovice->restocking }}
+                            {{ $invoice->other_charges }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.inovice.fields.other_charges') }}
+                            {{ trans('cruds.invoice.fields.total') }}
                         </th>
                         <td>
-                            {{ $inovice->other_charges }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.inovice.fields.total') }}
-                        </th>
-                        <td>
-                            {{ $inovice->total }}
+                            {{ $invoice->total }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.inovices.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.invoices.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

@@ -124,26 +124,46 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 29,
-                'title' => 'inovice_create',
+                'title' => 'invoice_create',
             ],
             [
                 'id'    => 30,
-                'title' => 'inovice_edit',
+                'title' => 'invoice_edit',
             ],
             [
                 'id'    => 31,
-                'title' => 'inovice_show',
+                'title' => 'invoice_show',
             ],
             [
                 'id'    => 32,
-                'title' => 'inovice_delete',
+                'title' => 'invoice_delete',
             ],
             [
                 'id'    => 33,
-                'title' => 'inovice_access',
+                'title' => 'invoice_access',
             ],
             [
                 'id'    => 34,
+                'title' => 'invoice_item_create',
+            ],
+            [
+                'id'    => 35,
+                'title' => 'invoice_item_edit',
+            ],
+            [
+                'id'    => 36,
+                'title' => 'invoice_item_show',
+            ],
+            [
+                'id'    => 37,
+                'title' => 'invoice_item_delete',
+            ],
+            [
+                'id'    => 38,
+                'title' => 'invoice_item_access',
+            ],
+            [
+                'id'    => 39,
                 'title' => 'profile_password_edit',
             ],
         ];

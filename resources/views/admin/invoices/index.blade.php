@@ -1,62 +1,62 @@
 @extends('layouts.admin')
 @section('content')
-@can('inovice_create')
+@can('invoice_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.inovices.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.inovice.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.invoices.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.invoice.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.inovice.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.invoice.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Inovice">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-Invoice">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.id') }}
+                            {{ trans('cruds.invoice.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.order_no') }}
+                            {{ trans('cruds.invoice.fields.order_no') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.invoice_date') }}
+                            {{ trans('cruds.invoice.fields.invoice_date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.delivery_method') }}
+                            {{ trans('cruds.invoice.fields.delivery_method') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.account') }}
+                            {{ trans('cruds.invoice.fields.account') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.job_name') }}
+                            {{ trans('cruds.invoice.fields.job_name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.branch') }}
+                            {{ trans('cruds.invoice.fields.branch') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.delivery_address') }}
+                            {{ trans('cruds.invoice.fields.delivery_address') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.billing_address') }}
+                            {{ trans('cruds.invoice.fields.billing_address') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.notes') }}
+                            {{ trans('cruds.invoice.fields.notes') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.subtotal') }}
+                            {{ trans('cruds.invoice.fields.subtotal') }}
                         </th>
                         <th>
-                            {{ trans('cruds.inovice.fields.total') }}
+                            {{ trans('cruds.invoice.fields.total') }}
                         </th>
                         <th>
                             &nbsp;
@@ -64,62 +64,62 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($inovices as $key => $inovice)
-                        <tr data-entry-id="{{ $inovice->id }}">
+                    @foreach($invoices as $key => $invoice)
+                        <tr data-entry-id="{{ $invoice->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $inovice->id ?? '' }}
+                                {{ $invoice->id ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->order_no ?? '' }}
+                                {{ $invoice->order_no ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->invoice_date ?? '' }}
+                                {{ $invoice->invoice_date ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->delivery_method ?? '' }}
+                                {{ $invoice->delivery_method ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->account ?? '' }}
+                                {{ $invoice->account ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->job_name ?? '' }}
+                                {{ $invoice->job_name ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->branch ?? '' }}
+                                {{ $invoice->branch ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->delivery_address ?? '' }}
+                                {{ $invoice->delivery_address ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->billing_address ?? '' }}
+                                {{ $invoice->billing_address ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->notes ?? '' }}
+                                {{ $invoice->notes ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->subtotal ?? '' }}
+                                {{ $invoice->subtotal ?? '' }}
                             </td>
                             <td>
-                                {{ $inovice->total ?? '' }}
+                                {{ $invoice->total ?? '' }}
                             </td>
                             <td>
-                                @can('inovice_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.inovices.show', $inovice->id) }}">
+                                @can('invoice_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.invoices.show', $invoice->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('inovice_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.inovices.edit', $inovice->id) }}">
+                                @can('invoice_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.invoices.edit', $invoice->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('inovice_delete')
-                                    <form action="{{ route('admin.inovices.destroy', $inovice->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('invoice_delete')
+                                    <form action="{{ route('admin.invoices.destroy', $invoice->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -144,11 +144,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('inovice_delete')
+@can('invoice_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.inovices.massDestroy') }}",
+    url: "{{ route('admin.invoices.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -179,7 +179,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-Inovice:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-Invoice:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

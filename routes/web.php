@@ -38,9 +38,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
-    // Inovice
-    Route::delete('inovices/destroy', 'InoviceController@massDestroy')->name('inovices.massDestroy');
-    Route::resource('inovices', 'InoviceController');
+    // Invoice
+    Route::delete('invoices/destroy', 'InvoiceController@massDestroy')->name('invoices.massDestroy');
+    Route::resource('invoices', 'InvoiceController');
+
+    // Invoice Item
+    Route::delete('invoice-items/destroy', 'InvoiceItemController@massDestroy')->name('invoice-items.massDestroy');
+    Route::resource('invoice-items', 'InvoiceItemController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Inovice;
+use App\Models\InvoiceItem;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-class MassDestroyInoviceRequest extends FormRequest
+class MassDestroyInvoiceItemRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('inovice_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('invoice_item_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -20,7 +20,7 @@ class MassDestroyInoviceRequest extends FormRequest
     {
         return [
             'ids'   => 'required|array',
-            'ids.*' => 'exists:inovices,id',
+            'ids.*' => 'exists:invoice_items,id',
         ];
     }
 }

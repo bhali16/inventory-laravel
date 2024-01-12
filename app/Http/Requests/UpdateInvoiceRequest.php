@@ -2,16 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Inovice;
+use App\Models\Invoice;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class UpdateInoviceRequest extends FormRequest
+class UpdateInvoiceRequest extends FormRequest
 {
     public function authorize()
     {
-        return Gate::allows('inovice_edit');
+        return Gate::allows('invoice_edit');
     }
 
     public function rules()
@@ -20,7 +20,7 @@ class UpdateInoviceRequest extends FormRequest
             'order_no' => [
                 'string',
                 'required',
-                'unique:inovices,order_no,' . request()->route('inovice')->id,
+                'unique:invoices,order_no,' . request()->route('invoice')->id,
             ],
             'invoice_date' => [
                 'required',
@@ -61,12 +61,6 @@ class UpdateInoviceRequest extends FormRequest
             'notes' => [
                 'string',
                 'nullable',
-            ],
-            'items_ordereds.*' => [
-                'integer',
-            ],
-            'items_ordereds' => [
-                'array',
             ],
             'subtotal' => [
                 'required',
