@@ -106,6 +106,8 @@
                                 {{ $invoice->total ?? '' }}
                             </td>
                             <td>
+
+
                                 @can('invoice_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.invoices.show', $invoice->id) }}">
                                         {{ trans('global.view') }}
@@ -116,6 +118,9 @@
                                     <a class="btn btn-xs btn-info" href="{{ route('admin.invoices.edit', $invoice->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.invoices.invoice', $invoice->id) }}">
+                                            Invoice
+                                        </a>
                                 @endcan
 
                                 @can('invoice_delete')
@@ -184,7 +189,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>

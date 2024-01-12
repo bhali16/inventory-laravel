@@ -61,4 +61,9 @@ class Invoice extends Model
     {
         $this->attributes['invoice_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
+
+    public function products()
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
 }
