@@ -8,7 +8,7 @@
 
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
-            <a href="{{ route("admin.home") }}" class="c-sidebar-nav-link">
+            <a href="{{ route('admin.home') }}" class="c-sidebar-nav-link">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">
 
                 </i>
@@ -16,7 +16,8 @@
             </a>
         </li>
         @can('user_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }} {{ request()->is("admin/audit-logs*") ? "c-show" : "" }}">
+            <li
+                class="c-sidebar-nav-dropdown {{ request()->is('admin/permissions*') ? 'c-show' : '' }} {{ request()->is('admin/roles*') ? 'c-show' : '' }} {{ request()->is('admin/users*') ? 'c-show' : '' }} {{ request()->is('admin/audit-logs*') ? 'c-show' : '' }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-users c-sidebar-nav-icon">
 
@@ -26,7 +27,8 @@
                 <ul class="c-sidebar-nav-dropdown-items">
                     @can('permission_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.permissions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.permissions.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-unlock-alt c-sidebar-nav-icon">
 
                                 </i>
@@ -36,7 +38,8 @@
                     @endcan
                     @can('role_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.roles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.roles.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
 
                                 </i>
@@ -46,7 +49,8 @@
                     @endcan
                     @can('user_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.users.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/users") || request()->is("admin/users/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.users.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-user c-sidebar-nav-icon">
 
                                 </i>
@@ -56,7 +60,8 @@
                     @endcan
                     @can('audit_log_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.audit-logs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/audit-logs") || request()->is("admin/audit-logs/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.audit-logs.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-file-alt c-sidebar-nav-icon">
 
                                 </i>
@@ -69,7 +74,8 @@
         @endcan
         @can('warehouse_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.warehouses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/warehouses") || request()->is("admin/warehouses/*") ? "c-active" : "" }}">
+                <a href="{{ route('admin.warehouses.index') }}"
+                    class="c-sidebar-nav-link {{ request()->is('admin/warehouses') || request()->is('admin/warehouses/*') ? 'c-active' : '' }}">
                     <i class="fa-fw fas fa-warehouse c-sidebar-nav-icon">
 
                     </i>
@@ -79,7 +85,8 @@
         @endcan
         @can('product_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.products.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/products") || request()->is("admin/products/*") ? "c-active" : "" }}">
+                <a href="{{ route('admin.products.index') }}"
+                    class="c-sidebar-nav-link {{ request()->is('admin/products') || request()->is('admin/products/*') ? 'c-active' : '' }}">
                     <i class="fa-fw fas fa-box c-sidebar-nav-icon">
 
                     </i>
@@ -89,7 +96,8 @@
         @endcan
         @can('invoice_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.invoices.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoices") || request()->is("admin/invoices/*") ? "c-active" : "" }}">
+                <a href="{{ route('admin.invoices.index') }}"
+                    class="c-sidebar-nav-link {{ request()->is('admin/invoices') || request()->is('admin/invoices/*') ? 'c-active' : '' }}">
                     <i class="fa-fw fas fa-file-invoice c-sidebar-nav-icon">
 
                     </i>
@@ -97,20 +105,32 @@
                 </a>
             </li>
         @endcan
-{{--        @can('invoice_item_access')--}}
-{{--            <li class="c-sidebar-nav-item">--}}
-{{--                <a href="{{ route("admin.invoice-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-items") || request()->is("admin/invoice-items/*") ? "c-active" : "" }}">--}}
-{{--                    <i class="fa-fw fas fa-square c-sidebar-nav-icon">--}}
+        {{--        @can('invoice_item_access') --}}
+        {{--            <li class="c-sidebar-nav-item"> --}}
+        {{--                <a href="{{ route("admin.invoice-items.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-items") || request()->is("admin/invoice-items/*") ? "c-active" : "" }}"> --}}
+        {{--                    <i class="fa-fw fas fa-square c-sidebar-nav-icon"> --}}
 
-{{--                    </i>--}}
-{{--                    {{ trans('cruds.invoiceItem.title') }}--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--        @endcan--}}
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
+        {{--                    </i> --}}
+        {{--                    {{ trans('cruds.invoiceItem.title') }} --}}
+        {{--                </a> --}}
+        {{--            </li> --}}
+        {{--        @endcan --}}
+        @can('vendor_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route('admin.vendors.index') }}"
+                    class="c-sidebar-nav-link {{ request()->is('admin/vendors') || request()->is('admin/vendors/*') ? 'c-active' : '' }}">
+                    <i class="fa-fw fas fa-luggage-cart c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.vendor.title') }}
+                </a>
+            </li>
+        @endcan
+        @if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}" href="{{ route('profile.password.edit') }}">
+                    <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}"
+                        href="{{ route('profile.password.edit') }}">
                         <i class="fa-fw fas fa-key c-sidebar-nav-icon">
                         </i>
                         {{ trans('global.change_password') }}
@@ -119,7 +139,8 @@
             @endcan
         @endif
         <li class="c-sidebar-nav-item">
-            <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+            <a href="#" class="c-sidebar-nav-link"
+                onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">
 
                 </i>

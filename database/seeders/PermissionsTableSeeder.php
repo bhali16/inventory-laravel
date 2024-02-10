@@ -164,6 +164,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 39,
+                'title' => 'vendor_create',
+            ],
+            [
+                'id'    => 40,
+                'title' => 'vendor_edit',
+            ],
+            [
+                'id'    => 41,
+                'title' => 'vendor_show',
+            ],
+            [
+                'id'    => 42,
+                'title' => 'vendor_delete',
+            ],
+            [
+                'id'    => 43,
+                'title' => 'vendor_access',
+            ],
+            [
+                'id'    => 44,
                 'title' => 'profile_password_edit',
             ],
         ];

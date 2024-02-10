@@ -46,6 +46,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('invoice-items/destroy', 'InvoiceItemController@massDestroy')->name('invoice-items.massDestroy');
     Route::resource('invoice-items', 'InvoiceItemController');
     Route::get('invoice/{id}/invoice', 'InvoiceController@invoice')->name('invoices.invoice');
+
+
+    // Vendor
+    Route::delete('vendors/destroy', 'VendorController@massDestroy')->name('vendors.massDestroy');
+    Route::resource('vendors', 'VendorController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password

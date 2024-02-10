@@ -15,6 +15,8 @@ class CreateProductsTable extends Migration
             $table->string('product_mfg')->nullable();
             $table->decimal('product_price', 15, 2);
             $table->string('product_type');
+            $table->unsignedBigInteger('vendor_id')->nullable();
+            $table->foreign('vendor_id', 'vendor_fk_9486704')->references('id')->on('vendors');
             $table->timestamps();
             $table->softDeletes();
         });

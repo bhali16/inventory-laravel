@@ -37,6 +37,7 @@ class Product extends Model implements HasMedia
         'product_mfg',
         'product_price',
         'product_type',
+        'vendor_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -63,5 +64,16 @@ class Product extends Model implements HasMedia
         }
 
         return $file;
+    }
+
+    //count the product used in the invoices
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class, 'product_id', 'id');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_id');
     }
 }

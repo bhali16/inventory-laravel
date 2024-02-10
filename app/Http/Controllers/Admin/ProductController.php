@@ -8,6 +8,8 @@ use App\Http\Requests\MassDestroyProductRequest;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\Vendor;
+
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -21,7 +23,12 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::with(['media'])->get();
+        // $products = Product::with(['media'])->get();
+        $products = Product::with(['media'])
+            ->withCount('invoiceItems')
+            ->withSum('invoiceItems', 'quantity')
+            ->get();
+
 
         return view('admin.products.index', compact('products'));
     }
@@ -29,8 +36,9 @@ class ProductController extends Controller
     public function create()
     {
         abort_if(Gate::denies('product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $vendors = Vendor::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.products.create');
+        return view('admin.products.create', compact('vendors'));
     }
 
     public function store(StoreProductRequest $request)
@@ -51,16 +59,25 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         abort_if(Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $vendors = Vendor::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.products.edit', compact('product'));
+        $product->load('vendor');
+
+        return view('admin.products.edit', compact('product', 'vendors'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->all());
 
+        //if product type is 0 then set vendor_id to null
+        if ($request->product_type == 0) {
+            $product->vendor_id = null;
+            $product->save();
+        }
+
         if ($request->input('product_image', false)) {
-            if (! $product->product_image || $request->input('product_image') !== $product->product_image->file_name) {
+            if (!$product->product_image || $request->input('product_image') !== $product->product_image->file_name) {
                 if ($product->product_image) {
                     $product->product_image->delete();
                 }

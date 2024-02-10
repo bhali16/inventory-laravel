@@ -27,20 +27,20 @@ class InvoiceController extends Controller
     public function create()
     {
         abort_if(Gate::denies('invoice_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $products = Product::select('id', 'product_name', 'product_code','product_price')->get();
+        $products = Product::select('id', 'product_name', 'product_code', 'product_price')->get();
 
         return view('admin.invoices.create', compact('products'));
     }
 
     public function store(StoreInvoiceRequest $request)
     {
-//        $invoice = Invoice::create($request->all());
+        //        $invoice = Invoice::create($request->all());
         $order_data = $request->except('product');
         $products = $request->only('product')['product'];
 
         $order = Invoice::create($order_data);
         $order_id = $order->id;
-        foreach($products as $key=>&$product){
+        foreach ($products as $key => &$product) {
             $product['invoice_id'] = $order_id;
         }
         InvoiceItem::insert($products);
@@ -86,23 +86,23 @@ class InvoiceController extends Controller
         foreach ($invoices as $invoice) {
             $invoice->delete();
         }
-
         return response(null, Response::HTTP_NO_CONTENT);
     }
 
 
     public function invoice($id)
     {
-//        abort_if(Gate::denies('order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //        abort_if(Gate::denies('order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $invoice = Invoice::find($id);
-        $products = Product::select('id', 'product_code','product_price')->get();
+        $products = Product::select('id', 'product_name', 'product_code', 'product_price')->get();
 
         $invoice->load('products');
 
-        foreach($invoice->products as &$product){
-            $pd = Product::select('id','product_code')->where('id',$product->product_id)->first();
-            $product->name = $pd->product_code;
+        foreach ($invoice->products as &$product) {
+            $pd = Product::select('id', 'product_code', 'product_name')->where('id', $product->product_id)->first();
+            $product->code = $pd->product_code;
+            $product->product_name = $pd->product_name;
         }
 
         return view('admin.invoices.invoice', compact('invoice', 'products'));
