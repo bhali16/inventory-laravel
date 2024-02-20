@@ -97,6 +97,7 @@ class InvoiceController extends Controller
         // Update the invoice data except for products
         $invoice->update($request->except('product'));
 
+
         // Process products
         if ($request->has('product')) {
             $products = $request->input('product');
@@ -126,6 +127,7 @@ class InvoiceController extends Controller
                 }
             }
         }
+
 
         // Redirect to the index route after successful update
         return redirect()->route('admin.invoices.index');

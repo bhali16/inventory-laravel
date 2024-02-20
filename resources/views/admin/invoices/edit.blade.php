@@ -261,7 +261,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-8">
                         <div class="form-group">
@@ -355,6 +354,7 @@
                                         value="{{ $product->total_price }}">
                                     <input name="product[{{ $key }}][id]" type="hidden"
                                         class="form-control"value="{{ $product->id }}">
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -394,7 +394,6 @@
                 </div>
             </form>
         </div>
-    </div>
     </div>
 
 @section('scripts')
@@ -555,7 +554,6 @@
         <input name="product[${productCount}][product_price]" class="form-control product_price_" type="hidden" value="${productDetails.product_price}">
         <input name="product[${productCount}][product_id]" class="form-control product_id" type="hidden" value="${productDetails.id}">
         <input name="product[${productCount}][total_price]" class="form-control total_price_" type="hidden" value="${total_price}">
-        <input name="product[${productCount}][id]" class="form-control" type="hidden" value="${productDetails.id}">
     `;
                 $(tableRow).append(hiddenInputs);
 
