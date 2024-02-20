@@ -93,7 +93,7 @@ class InvoiceController extends Controller
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
-        dd($request->all());
+        // dd($request->all());
         // Update the invoice data except for products
         $invoice->update($request->except('product'));
 

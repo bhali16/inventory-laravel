@@ -261,132 +261,139 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        <div class="row">
-            <div class="col-8">
-                <div class="form-group">
-                    <label for="products">Select Products</label>
-                    <select class="form-control {{ $errors->has('products') ? 'is-invalid' : '' }} product_select"
-                        id="productSelect">
-                        @foreach ($products as $id => $product)
-                            <option data-unit-price="{{ $product->product_price }}" value="{{ $product->id }}"
-                                {{ in_array($product->id, old('products', [])) ? 'selected' : '' }}>
-                                {{ $product->product_name }} - {{ $product->product_code }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('products'))
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label for="products">Select Products</label>
+                            <select class="form-control {{ $errors->has('products') ? 'is-invalid' : '' }} product_select"
+                                id="productSelect">
+                                @foreach ($products as $id => $product)
+                                    <option data-unit-price="{{ $product->product_price }}" value="{{ $product->id }}"
+                                        {{ in_array($product->id, old('products', [])) ? 'selected' : '' }}>
+                                        {{ $product->product_name }} - {{ $product->product_code }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('products'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('products') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>.</label>
+                            <button style="background: #321fdb;color: white;" class="form-control btn" type="button"
+                                id="addProductButton">Add Product</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-none">
+                    <label for="subtotal">{{ trans('cruds.order.fields.subtotal') }}</label>
+                    <input class="form-control {{ $errors->has('subtotal') ? 'is-invalid' : '' }}" type="number"
+                        name="subtotal" id="subtotal" value="{{ old('subtotal', $invoice->subtotal) }}"
+                        step="0.01">
+                    @if ($errors->has('subtotal'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('products') }}
+                            {{ $errors->first('subtotal') }}
                         </div>
                     @endif
+                    <span class="help-block">{{ trans('cruds.order.fields.subtotal_helper') }}</span>
                 </div>
-            </div>
-            <div class="col-4">
+
+                <div class="form-group d-none">
+                    <label class="required" for="total">{{ trans('cruds.invoice.fields.total') }}</label>
+                    <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number"
+                        name="total" id="order_total" value="{{ old('total', $invoice->total) }}" step="0.01"
+                        required>
+                    @if ($errors->has('total'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('total') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.invoice.fields.total_helper') }}</span>
+                </div>
+
+
+
+
+
                 <div class="form-group">
-                    <label>.</label>
-                    <button style="background: #321fdb;color: white;" class="form-control btn" type="button"
-                        id="addProductButton">Add Product</button>
+                    <table class="table table-bordered table-sm" id="productTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Unit Price ($)</th>
+                                <th scope="col">Total Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            @foreach ($invoice->products as $key => $product)
+                                <tr>
+                                    <td>{{ $product->name }} - {{ $product->code }}</td>
+                                    <td class="quantityInput">
+                                        <input min="1" name="product[{{ $key }}][quantity]"
+                                            type="number" class="form-control qty_input"
+                                            value="{{ $product->quantity }}">
+                                    </td>
+                                    <td>{{ $product->product_price }}</td>
+                                    <td>{{ $product->total_price }}</td>
+                                    <td>
+                                        <span class="removeProduct badge badge-danger "
+                                            style="cursor:pointer;">Remove</span>
+                                    </td>
+                                    <input name="product[{{ $key }}][product_price]"
+                                        type="hidden"class="form-control product_price_"
+                                        value="{{ $product->product_price }}">
+                                    <input name="product[{{ $key }}][product_id]"
+                                        type="hidden"class="form-control product_id" value="{{ $product->id }}">
+                                    <input name="product[{{ $key }}][total_price]"
+                                        type="hidden"class="form-control total_price_"
+                                        value="{{ $product->total_price }}">
+                                    <input name="product[{{ $key }}][id]" type="hidden"
+                                        class="form-control"value="{{ $product->id }}">
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="text-right">
+                                <td colspan="3">
+                                    <h4>Subtotal</h4>
+                                </td>
+                                <td>
+                                    <h4 id="total_subtotal_price">{{ $invoice->subtotal }}</h4>
+                                </td>
+                            </tr>
+                            <tr class="text-right">
+                                <td colspan="3">
+                                    <h4>Shipping</h4>
+                                </td>
+                                <td>
+                                    <h4 id="total_shipping_price">{{ $invoice->delivery_charges }}</h4>
+                                </td>
+                            </tr>
+
+                            <tr class="text-right">
+                                <td colspan="3">
+                                    <h4>Total</h4>
+                                </td>
+                                <td>
+                                    <h1 id="total_price">{{ $invoice->total }}</h1>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-            </div>
-        </div>
-        <div class="form-group d-none">
-            <label for="subtotal">{{ trans('cruds.order.fields.subtotal') }}</label>
-            <input class="form-control {{ $errors->has('subtotal') ? 'is-invalid' : '' }}" type="number"
-                name="subtotal" id="subtotal" value="{{ old('subtotal', $invoice->subtotal) }}" step="0.01">
-            @if ($errors->has('subtotal'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('subtotal') }}
+                <div class="form-group">
+                    <button class="btn btn-danger" type="submit">
+                        Update
+                    </button>
                 </div>
-            @endif
-            <span class="help-block">{{ trans('cruds.order.fields.subtotal_helper') }}</span>
+            </form>
         </div>
-
-        <div class="form-group d-none">
-            <label class="required" for="total">{{ trans('cruds.invoice.fields.total') }}</label>
-            <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number" name="total"
-                id="order_total" value="{{ old('total', $invoice->total) }}" step="0.01" required>
-            @if ($errors->has('total'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('total') }}
-                </div>
-            @endif
-            <span class="help-block">{{ trans('cruds.invoice.fields.total_helper') }}</span>
-        </div>
-
-
-
-
-
-        <div class="form-group">
-            <table class="table table-bordered table-sm" id="productTable">
-                <thead>
-                    <tr>
-                        <th scope="col">Product Description</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Unit Price ($)</th>
-                        <th scope="col">Total Price</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="productTableBody">
-                    @foreach ($invoice->products as $key => $product)
-                        <tr>
-                            <td>{{ $product->name }} - {{ $product->code }}</td>
-                            <td class="quantityInput">
-                                <input min="1" name="product[{{ $key }}][quantity]" type="number"
-                                    class="form-control qty_input" value="{{ $product->quantity }}">
-                            </td>
-                            <td>{{ $product->product_price }}</td>
-                            <td>{{ $product->total_price }}</td>
-                            <td>
-                                <span class="removeProduct badge badge-danger " style="cursor:pointer;">Remove</span>
-                            </td>
-                            <input name="product[{{ $key }}][product_price]"
-                                type="hidden"class="form-control product_price_" value="{{ $product->product_price }}">
-                            <input name="product[{{ $key }}][product_id]"
-                                type="hidden"class="form-control product_id" value="{{ $product->id }}">
-                            <input name="product[{{ $key }}][total_price]"
-                                type="hidden"class="form-control total_price_" value="{{ $product->total_price }}">
-                            <input name="product[{{ $key }}][id]" type="hidden"
-                                class="form-control"value="{{ $product->id }}">
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr class="text-right">
-                        <td colspan="3">
-                            <h4>Subtotal</h4>
-                        </td>
-                        <td>
-                            <h4 id="total_subtotal_price">{{ $invoice->subtotal }}</h4>
-                        </td>
-                    </tr>
-                    <tr class="text-right">
-                        <td colspan="3">
-                            <h4>Shipping</h4>
-                        </td>
-                        <td>
-                            <h4 id="total_shipping_price">{{ $invoice->delivery_charges }}</h4>
-                        </td>
-                    </tr>
-
-                    <tr class="text-right">
-                        <td colspan="3">
-                            <h4>Total</h4>
-                        </td>
-                        <td>
-                            <h1 id="total_price">{{ $invoice->total }}</h1>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-danger" type="submit">
-                Update
-            </button>
-        </div>
-        </form>
     </div>
     </div>
 
