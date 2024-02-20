@@ -115,9 +115,9 @@
                                 @endcan --}}
 
                                     @can('invoice_edit')
-                                        {{-- <a class="btn btn-xs btn-info" href="{{ route('admin.invoices.edit', $invoice->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a> --}}
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.invoices.edit', $invoice->id) }}">
+                                            {{ trans('global.edit') }}
+                                        </a>
                                         <a class="btn btn-xs btn-primary"
                                             href="{{ route('admin.invoices.invoice', $invoice->id) }}">
                                             Invoice

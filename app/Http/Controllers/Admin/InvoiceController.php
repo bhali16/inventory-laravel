@@ -52,16 +52,87 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
         abort_if(Gate::denies('invoice_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $products = Product::all();
+        $invoice->load('products');
 
-        return view('admin.invoices.edit', compact('invoice'));
+        foreach ($invoice->products as &$product) {
+            $pd = Product::select('id', 'product_name', 'product_code')->where('id', $product->id)->first();
+            $product->name = $pd->product_name;
+            $product->code = $pd->product_code;
+        }
+
+
+        return view('admin.invoices.edit', compact('invoice', 'products'));
     }
+
+    // public function update(UpdateInvoiceRequest $request, Invoice $invoice)
+    // {
+    //     $invoice->update($request->all());
+
+    //     $invoice_data = $request->except('product');
+    //     $products = $request->only('product')['product'];
+    //     $allProducts = $invoice->products->pluck('id')->toArray();
+    //     $submittedIds = array_filter(collect($products)->pluck('id')->toArray());
+
+
+    //     $idsToDel = array_diff($allProducts, $submittedIds);
+    //     $invoice->products()->whereIn('id', $idsToDel)->delete();
+    //     foreach ($products as $key => $product) {
+    //         if (isset($product['id'])) {
+    //             InvoiceItem::where('id', $product['id'])->update($product);
+    //         } else {
+    //             $product['invoice_id'] = $invoice->id;
+    //             InvoiceItem::create($product);
+    //         }
+    //     }
+
+    //     $invoice->update($invoice_data);
+
+    //     return redirect()->route('admin.invoices.index');
+    // }
 
     public function update(UpdateInvoiceRequest $request, Invoice $invoice)
     {
-        $invoice->update($request->all());
+        dd($request->all());
+        // Update the invoice data except for products
+        $invoice->update($request->except('product'));
 
+        // Process products
+        if ($request->has('product')) {
+            $products = $request->input('product');
+
+            // Get all product IDs associated with the invoice
+            $allProducts = $invoice->products->pluck('id')->toArray();
+
+            // Extract submitted product IDs
+            $submittedIds = array_filter(collect($products)->pluck('id')->toArray());
+
+            // Identify products to delete (those not submitted)
+            $idsToDel = array_diff($allProducts, $submittedIds);
+
+            // Delete products that are not submitted in the request
+            if (!empty($idsToDel)) {
+                InvoiceItem::whereIn('id', $idsToDel)->delete();
+            }
+
+            // Update or create invoice items
+            foreach ($products as $product) {
+                // If the product has an ID, update it; otherwise, create a new one
+                if (isset($product['id'])) {
+                    InvoiceItem::findOrFail($product['id'])->update($product);
+                } else {
+                    $product['invoice_id'] = $invoice->id;
+                    InvoiceItem::create($product);
+                }
+            }
+        }
+
+        // Redirect to the index route after successful update
         return redirect()->route('admin.invoices.index');
     }
+
+
+
 
     public function show(Invoice $invoice)
     {
